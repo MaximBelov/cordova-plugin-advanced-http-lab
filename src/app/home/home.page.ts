@@ -83,19 +83,32 @@ export class HomePage {
     }
 
     async uploadFile(){
-        window.cordova.plugin.http.uploadFile('https://httpbin.org/post', {}, {}, `${this.file.dataDirectory}/test.zip`,
-            'test.zip',
-            (fileEntry: FileEntry) => {
-                console.log(fileEntry);
-            },
-            (fileError: FileError, stage: string) => {
-                console.log(fileError);
-                console.log(stage);
-            },
+        // window.cordova.plugin.http.uploadFile('https://httpbin.org/post', {}, {}, `${this.file.dataDirectory}/update.zip`,
+        //     'update.zip',
+        //     (fileEntry: FileEntry) => {
+        //         console.log(fileEntry);
+        //     },
+        //     (fileError: FileError, stage: string) => {
+        //         console.log(fileError);
+        //         console.log(stage);
+        //     },
+        //     (progressData) => {
+        //         console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
+        //     }
+        // );
+
+        const nativeHttpResponse = await this.httpNative.uploadFile(
+            'https://httpbin.org/post',
+            {},
+            {},
+            `${this.file.dataDirectory}/update.zip`,
+            'update.zip',
             (progressData) => {
+                this.progress.next(progressData);
+                this.changeDetectorRef.detectChanges();
                 console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
-            }
-        );
+            });
+        console.log(nativeHttpResponse);
     }
 
 }

@@ -22,7 +22,14 @@ export class AppComponent {
     this.platform.ready().then(() => {
       if(this.platform.is('cordova')){
         this.statusBar.styleDefault();
-        this.splashScreen.hide();        
+        this.splashScreen.hide();
+      }
+      if (this.platform.is('cordova') && this.platform.is('ios')) {
+        const i = document.createElement('iframe');
+        i.style.display = 'none';
+        document.body.appendChild(i);
+        // @ts-ignore
+        window.console = i.contentWindow.console;
       }
     });
   }
