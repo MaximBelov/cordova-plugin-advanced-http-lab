@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Ionic Blank
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-button (click)="downloadFile()">
+        <ion-label>download file</ion-label>
+    </ion-button>
+
+    <ion-button (click)="uploadFile()">
+        <ion-label>upload file</ion-label>
+    </ion-button>
+
+    <ion-card>
+        <ion-card-content>
+
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card >
+        <ion-card-content>
+            {{ progress | async | json }}
+        </ion-card-content>
+    </ion-card>
+</ion-content>
