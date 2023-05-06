@@ -59,55 +59,36 @@ export class HomePage {
         if(!this.platform.is('cordova')){
             return this.http.get(url, { responseType: 'arraybuffer', reportProgress: true }).toPromise();
         }
-        // window.cordova.plugin.http.downloadFile(url, {}, {}, `${this.file.dataDirectory}/update.zip`,
-        //     (fileEntry: FileEntry) => {
-        //         console.log(fileEntry);
-        //     },
-        //     (fileError: FileError, stage: string) => {
-        //         console.log(fileError);
-        //         console.log(stage);
-        //     },
-        //     (progressData) => {
-        //         console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
-        //     }
-        // );
-        // return;
 
-        const nativeHttpResponse = await this.httpNative.downloadFile(url, {}, {}, `${this.file.dataDirectory}/update.zip`, (progressData) => {
-            this.progress.next(progressData);
-            this.changeDetectorRef.detectChanges();
+        const nativeHttpResponse = await this.httpNative.downloadFileWithOptions(url, {
+            params: {},
+            headers: {},
+            filePath: `${this.file.dataDirectory}/update.zip`,
+            onProgress: (progressData) => {
+                this.progress.next(progressData);
+                this.changeDetectorRef.detectChanges();
 
-            console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
+                console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
+            }
         });
         console.log(nativeHttpResponse);
     }
 
     async uploadFile(){
-        // window.cordova.plugin.http.uploadFile('https://httpbin.org/post', {}, {}, `${this.file.dataDirectory}/update.zip`,
-        //     'update.zip',
-        //     (fileEntry: FileEntry) => {
-        //         console.log(fileEntry);
-        //     },
-        //     (fileError: FileError, stage: string) => {
-        //         console.log(fileError);
-        //         console.log(stage);
-        //     },
-        //     (progressData) => {
-        //         console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
-        //     }
-        // );
-
-        const nativeHttpResponse = await this.httpNative.uploadFile(
+        const nativeHttpResponse = await this.httpNative.uploadFileWithOptions(
             'https://httpbin.org/post',
-            {},
-            {},
-            `${this.file.dataDirectory}/update.zip`,
-            'update.zip',
-            (progressData) => {
-                this.progress.next(progressData);
-                this.changeDetectorRef.detectChanges();
-                console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
-            });
+            {
+                params: {},
+                headers: {},
+                filePath: `${this.file.dataDirectory}/update.zip`,
+                name: 'update.zip',
+                onProgress: (progressData) => {
+                    this.progress.next(progressData);
+                    this.changeDetectorRef.detectChanges();
+                    console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
+                }
+            }
+        );
         console.log(nativeHttpResponse);
     }
 
