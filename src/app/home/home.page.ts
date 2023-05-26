@@ -28,7 +28,8 @@ export class HomePage {
     public downloadUrlNative = 'http://212.183.159.230/5MB.zip';
     public filesDirectory: string;
     public tempDirectory: string;
-    public progress = new BehaviorSubject({});
+    public progressDownload = new BehaviorSubject({});
+    public progressUpload = new BehaviorSubject({});
     private readonly file = this.injector.get(File);
     public readonly http = this.injector.get(HttpClient);
     private readonly httpNative = this.injector.get(HTTP);
@@ -60,12 +61,15 @@ export class HomePage {
             return this.http.get(url, { responseType: 'arraybuffer', reportProgress: true }).toPromise();
         }
 
-        const nativeHttpResponse = await this.httpNative.downloadFileWithOptions(url, {
+
+        const nativeHttpResponse = await this.httpNative.sendRequest(url, {
+            method: 'download',
             params: {},
             headers: {},
             filePath: `${this.file.dataDirectory}/update.zip`,
+            // @ts-ignore
             onProgress: (progressData) => {
-                this.progress.next(progressData);
+                this.progressDownload.next(progressData);
                 this.changeDetectorRef.detectChanges();
 
                 console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
@@ -75,15 +79,17 @@ export class HomePage {
     }
 
     async uploadFile(){
-        const nativeHttpResponse = await this.httpNative.uploadFileWithOptions(
+        const nativeHttpResponse = await this.httpNative.sendRequest(
             'https://httpbin.org/post',
             {
+                method: 'upload',
                 params: {},
                 headers: {},
                 filePath: `${this.file.dataDirectory}/update.zip`,
                 name: 'update.zip',
+                // @ts-ignore
                 onProgress: (progressData) => {
-                    this.progress.next(progressData);
+                    this.progressUpload.next(progressData);
                     this.changeDetectorRef.detectChanges();
                     console.log((progressData.transferred / progressData.total * 100) + ' percent complete')
                 }

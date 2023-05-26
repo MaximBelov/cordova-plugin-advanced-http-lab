@@ -17,13 +17,13 @@
 
     <ion-card>
         <ion-card-content>
-
+            progressDownload: {{ progressDownload | async | json }}
         </ion-card-content>
     </ion-card>
 
     <ion-card >
         <ion-card-content>
-            {{ progress | async | json }}
+            progressUpload: {{ progressUpload | async | json }}
         </ion-card-content>
     </ion-card>
 </ion-content>

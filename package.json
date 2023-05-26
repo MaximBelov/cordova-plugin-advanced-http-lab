@@ -13,7 +13,7 @@
     "build:ios": "ionic cordova build ios --debug --verbose",
     "run:ios": "ionic cordova run ios --livereload --external --verbose",
     "run:ios:device": "ionic cordova run ios --device",
-    "run:android": "ionic cordova run android --livereload --verbose --host=192.168.1.9"
+    "run:android": "ionic cordova run android --livereload --verbose --host=192.168.1.5"
   },
   "private": true,
   "dependencies": {
