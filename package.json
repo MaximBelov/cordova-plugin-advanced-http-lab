@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-advanced-http-lab",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Maxim Belov",
   "homepage": "https://github.com/MaximBelov/cordova-plugin-advanced-http-lab",
   "description": "A demo application for the cordova-plugin-advanced-http",
@@ -29,7 +29,7 @@
     "@awesome-cordova-plugins/splash-screen": "6.3.0",
     "@awesome-cordova-plugins/status-bar": "6.3.0",
     "@ionic/angular": "6.2.5",
-    "awesome-cordova-plugins-http": "6.3.3",
+    "awesome-cordova-plugins-http": "6.3.5",
     "core-js": "3.25.0",
     "rxjs": "7.5.6",
     "tslib": "2.4.0",

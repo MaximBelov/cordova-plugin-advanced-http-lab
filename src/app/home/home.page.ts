@@ -67,7 +67,6 @@ export class HomePage {
             params: {},
             headers: {},
             filePath: `${this.file.dataDirectory}/update.zip`,
-            // @ts-ignore
             onProgress: (progressData) => {
                 this.progressDownload.next(progressData);
                 this.changeDetectorRef.detectChanges();
@@ -87,7 +86,6 @@ export class HomePage {
                 headers: {},
                 filePath: `${this.file.dataDirectory}/update.zip`,
                 name: 'update.zip',
-                // @ts-ignore
                 onProgress: (progressData) => {
                     this.progressUpload.next(progressData);
                     this.changeDetectorRef.detectChanges();
